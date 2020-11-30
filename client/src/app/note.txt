@@ -1,0 +1,32 @@
+ng add ngx-bootstrap 
+ngx-dropzone
+ngx-spinner
+ngx-toastr
+@auth0/angular-jwt
+
+ng g m accounts --routing
+ng g m customers --routing
+ng g m invoices --routing
+ng g m shared
+
+
+ng g c accounts/signin --skipTests
+ng g c accounts/signup --skipTests
+ng g c accounts/admin-panel --skipTests
+ng g c accounts/photo-management --skipTests
+ng g c accounts/user-management --skipTests
+
+ng g c customers/customer-home --skipTests
+ng g c customers/customer-edit --skipTests
+ng g c customers/customer-delete --skipTests
+ng g c customers/customer-detail --skipTests
+ng g c customers/customer-add --skipTests
+
+
+ng g c invoices/invoice-home --skipTests
+ng g c invoices/invoice-edit --skipTests
+ng g c invoices/invoice-delete --skipTests
+ng g c invoices/invoice-detail --skipTests
+ng g c invoices/invoice-add --skipTests
+
+ng g c nav --skipTests

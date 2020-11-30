@@ -1,0 +1,31 @@
+﻿https://www.json-generator.com/
+[
+  '{{repeat(5)}}',
+  {
+    UserName: '{{firstName("male")}}',
+    email: '{{email()}}',
+    occupation: 'manager', 
+    avatar: function(num) { return 'https://randomuser.me/api/portraits/men/' + num.integer(1,5) + '.jpg';},
+      nickName: function(){ return this.UserName; }
+    
+  }
+]
+
+[
+  '{{repeat(5)}}',
+  {
+    CustomerName: '{{firstName("female")}}',
+   CompanyName: '{{company().toUpperCase()}}',
+    Address1: '{{integer(1, 50)}} {{street()}}',
+    Address2: 'Leyton',
+    Address3: 'London',
+    Address4: 'E10 A{{integer(1, 50)}}',
+    Address5: 'UK',
+    DateOfBirth:'{{date(new Date(1980,0,1), new Date(2000, 11, 30), "YYYY-MM-dd")}}',
+    Gender: 'male',
+    Discontinued: false,
+    PhotoUrl: function(num) { return 'https://randomuser.me/api/portraits/men/' + num.integer(6,11) + '.jpg';},
+    NoteInfo: '',
+    Email: '{{email()}}'
+  }
+]

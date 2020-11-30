@@ -1,0 +1,75 @@
+<div class="card mb-2">
+    <div class="card-header">
+        <h4>House List</h4>
+    </div>
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <button  [routerLink]="['addhouse']" class="btn btn-primary"  id="button-addon1"><i class="fa fa-plus-circle"></i></button>
+        <button (click)="searchHomes()" class="btn btn-primary"  id="button-addon1"><i class="fa fa-search"></i></button>
+    </div>
+    <!-- <input type="text" [(ngModel)]="searchtxt" class="form-control" placeholder="Address or Tenant"> -->
+</div>  
+<div class="table-responsive g-mb-40">
+    <div *ngIf="isLoading"  class="card" style="height:100px;">
+       <div class="card-body">
+           <ngx-spinner [fullScreen]="false" type="line-scale" size="medium">
+            
+           </ngx-spinner>
+       </div>
+    </div>
+    <!-- <div >
+       
+    </div> -->
+    
+    <table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                customer Name
+            </th>
+
+            <th class="d-none d-sm-table-cell">
+                company Name
+            </th>
+            <th class="d-none d-sm-table-cell">
+                address1
+            </th>
+
+            <th class="d-none d-sm-table-cell">
+                gender
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cust of customers">
+            <td>
+                <img src="{{cust.photoUrl}}" class="rounded-circle" style="height: 40px;"/>
+            </td>
+            <td>
+                {{cust.customerName}}
+            </td>
+
+            <td class="d-none d-sm-table-cell">
+                {{cust.companyName}}
+            </td>
+
+            <td class="d-none d-sm-table-cell">
+                {{cust.address1}}
+            </td>
+            <td class="d-none d-sm-table-cell">
+                {{cust.gender}}
+            </td>
+            <td style="text-align: right">
+                <a title="Edit"  [routerLink]="['edithouse', cust.id]"><i class="fa fa-edit"></i></a> |
+                <a title="Print" [routerLink]="['printdetails', cust.id]"><i class="fa fa-print"></i></a> |
+                <a title="Delete" [routerLink]="['deletehouse', cust.id]" ><i class="fa fa-trash"></i></a>
+            </td>
+           
+        </tr>
+        </tbody>
+    </table>
+</div>

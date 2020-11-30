@@ -1,0 +1,80 @@
+[
+  {
+    "UserName": "Debbie",
+    "email": "debbieeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/women/4.jpg",
+    "nickName": "Debbie"
+  },
+  {
+    "UserName": "Deloris",
+    "email": "deloriseaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/women/5.jpg",
+    "nickName": "Deloris"
+  },
+  {
+    "UserName": "Shanna",
+    "email": "shannaeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/women/3.jpg",
+    "nickName": "Shanna"
+  },
+  {
+    "UserName": "Maggie",
+    "email": "maggieeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/women/2.jpg",
+    "nickName": "Maggie"
+  },
+  {
+    "UserName": "Fran",
+    "email": "franeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/women/1.jpg",
+    "nickName": "Fran"
+  },
+  {
+    "UserName": "Kelly",
+    "email": "kellyeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/men/1.jpg",
+    "nickName": "Kelly"
+  },
+  {
+    "UserName": "Haney",
+    "email": "haneyeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/men/2.jpg",
+    "nickName": "Haney"
+  },
+  {
+    "UserName": "Dale",
+    "email": "daleeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/men/3.jpg",
+    "nickName": "Dale"
+  },
+  {
+    "UserName": "Cobb",
+    "email": "cobbeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/men/4.jpg",
+    "nickName": "Cobb"
+  },
+  {
+    "UserName": "Rowe",
+    "email": "roweeaton@nutralab.com",
+    "occupation": "manager",
+    "avatar": "https://randomuser.me/api/portraits/men/5.jpg",
+    "nickName": "Rowe"
+  },
+  {
+    "UserName": "tony",
+    "email": "tony@nutralab.com",
+    "occupation": "Admin",
+    "avatar": "https://res.cloudinary.com/dbalg7dya/image/upload/v1593803393/PlaceOrder_fkjr9a.png",
+    "nickName": "tony"
+  }
+]
+
