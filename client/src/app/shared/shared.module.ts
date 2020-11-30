@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { TextInputComponent } from './text-input/text-input.component';
-
+import { ToastrModule } from 'ngx-toastr';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -12,13 +17,27 @@ import { TextInputComponent } from './text-input/text-input.component';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BsDropdownModule.forRoot(),
+    ButtonsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    }),
+    ModalModule.forRoot()
   ],
   exports: [
     ReactiveFormsModule,
     FormsModule,
     TextInputComponent,
-    HttpClientModule
+    HttpClientModule,
+    BsDropdownModule,
+    ButtonsModule,
+    ToastrModule,
+    PaginationModule,
+    BsDatepickerModule,
+    ModalModule
   ]
 })
 export class SharedModule { }

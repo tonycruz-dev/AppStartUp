@@ -28,10 +28,10 @@ export class AccountsService {
       return of(null);
     }
 
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${token}`);
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Authorization', `Bearer ${token}`);
 
-    return this.http.get(this.baseUrl + 'api/Account', {headers}).pipe(
+    return this.http.get(this.baseUrl + 'api/Account').pipe(
       map((user: IUser) => {
         if (user) {
           this.currentUser = user;
