@@ -21,21 +21,25 @@ export class CustomersService {
   customerParams: CustomerParams;
   user: IUser;
   constructor(private http: HttpClient, private accountServices: AccountsService) {
+    this.customerParams = new CustomerParams();
     this.accountServices.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
-      this.customerParams = new CustomerParams();
     });
   }
 
   // tslint:disable-next-line:typedef
   getCustomers(custParms: CustomerParams) {
-    const params = getPaginationHeaders(custParms.pageNumber, custParms.pageSize);
+    let params = getPaginationHeaders(custParms.pageNumber, custParms.pageSize);
     // if (page !== null && itemPerPage !== null) {
     //   params.append('PageNumber', page.toString());
     //   params.append('PageSize', itemPerPage.toString());
     // }
-    // params = params.append('minAge', custParms.pageNumber.toString());
-    // params = params.append('maxAge', custParms.maxAge.toString());
+    if (custParms.search == null) {
+      custParms.search = '';
+    }
+    params = params.append('search', custParms.search);
+
+
     // params = params.append('gender', userParams.gender);
     // params = params.append('orderBy', userParams.orderBy);
 

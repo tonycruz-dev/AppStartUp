@@ -32,7 +32,7 @@ export class CustomerHomeComponent implements OnInit {
    });
   }
   searchHomes(): void {
-
+    this.loadCustomers();
   }
   // tslint:disable-next-line:typedef
   pageChanged(event: any) {

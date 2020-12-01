@@ -8,7 +8,7 @@
         <button  [routerLink]="['addhouse']" class="btn btn-primary"  id="button-addon1"><i class="fa fa-plus-circle"></i></button>
         <button (click)="searchHomes()" class="btn btn-primary"  id="button-addon1"><i class="fa fa-search"></i></button>
     </div>
-    <input type="text" [(ngModel)]="searchtxt" class="form-control" placeholder="name or company">
+    <input type="text" [(ngModel)]="customerParams.search" class="form-control" placeholder="name or company">
 </div>
 <div class="table-responsive g-mb-40">
     <table class="table table-hover table-striped">
@@ -36,7 +36,7 @@
     <tbody>
         <tr *ngFor="let cust of customers">
             <td>
-                <img src="{{cust.photoUrl}}" class="rounded-circle" style="height: 40px;"/>
+                <img src="{{cust.photoUrl}}" class="rounded-circle" style="height: 35px;"/>
             </td>
             <td>
                 {{cust.customerName}}

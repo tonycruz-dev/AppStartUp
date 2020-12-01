@@ -10,15 +10,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {JwtInterceptor} from './shared/interceptors/jwt.interceptor';
 import {LoadingInterceptor} from './shared/interceptors/loading.interceptor';
-import {ErrorInterceptor} from './shared/interceptors/rror.interceptor';
+import {ErrorInterceptor} from './shared/interceptors/error.interceptor';
 import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

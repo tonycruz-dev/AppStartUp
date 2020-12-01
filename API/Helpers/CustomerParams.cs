@@ -9,6 +9,7 @@ namespace API.Helpers
     {
         public string CompanyName { get; set; }
         public string CustomerName { get; set; }
+        public string Search { get; set; }
         public string OrderBy { get; set; } = "CustomerName";
     }
 }

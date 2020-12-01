@@ -4,6 +4,7 @@ using API.DTOs;
 using API.Extensions;
 using API.Helpers;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-
+    [Authorize]
     public class CustomersController : BaseController
     {
         private readonly ICustomerService _customerService;

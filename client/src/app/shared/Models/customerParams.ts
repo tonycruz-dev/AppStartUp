@@ -4,7 +4,8 @@ export class CustomerParams {
     gender: string;
     pageNumber = 1;
     pageSize = 10;
-    orderBy = 'lastActive';
+    orderBy = 'customerName';
+    search = '';
 
     // constructor(customers: ICustomer) {
     //     this.gender = customers.gender === 'female' ? 'male' : 'female';

@@ -73,8 +73,14 @@ namespace API.Infrastructure.Services
         {
             var query = _context.Customers.AsQueryable();
 
-            //query = query.Where(c => c.CompanyName != customerParams.CompanyName);
-            //query = query.Where(c => c.CustomerName == customerParams.CustomerName);
+            if (customerParams.Search != null)
+            {
+                query = query.Where(
+                   c => c.CompanyName.ToLower().Contains(customerParams.Search.ToLower()) || 
+                   c.CustomerName.ToLower().Contains(customerParams.Search.ToLower()));
+            }
+            //  != customerParams.CompanyName);
+            //query = query.Where(c => c.CustomerName.ToLower().Contains(customerParams.CustomerName.ToLower()));
 
 
             query = customerParams.OrderBy switch

@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: 'customers',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./customers/customers.module').then(m => m.CustomersModule)
   },
@@ -13,6 +15,11 @@ const routes: Routes = [
     path: 'invoices',
     loadChildren: () =>
       import('./invoices/invoices.module').then(m => m.InvoicesModule)
+  },
+  {
+    path: 'errors',
+    loadChildren: () =>
+      import('./errors/errors.module').then(m => m.ErrorsModule)
   },
   {
     path: 'account',
