@@ -11,5 +11,6 @@ namespace API.Core.Entities
         public string NickName { get; set; }
 
         public Collection<Customer> Customers { get; set; }
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }

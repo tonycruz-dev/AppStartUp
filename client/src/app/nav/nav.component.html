@@ -41,7 +41,11 @@
     <ng-container *ngIf="currentUser$ | async">
       <a routerLink="/customers" class="nav-link text-muted" routerLinkActive="active">Customers</a>
       <a routerLink="/invoices" class="nav-link text-muted" routerLinkActive="active">Invoice</a>
+
       <a routerLink="/errors" class="nav-link text-muted" routerLinkActive="active">Test Error</a>
+    </ng-container>
+    <ng-container *ngIf="(currentUser$ | async) as user">
+       <a class="nav-link" *ngIf="user.occupation==='Admin'" routerLink='/account/admin' routerLinkActive='active'>Admin</a>
     </ng-container>
 
   </nav>

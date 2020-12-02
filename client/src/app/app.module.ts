@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,8 @@ import {JwtInterceptor} from './shared/interceptors/jwt.interceptor';
 import {LoadingInterceptor} from './shared/interceptors/loading.interceptor';
 import {ErrorInterceptor} from './shared/interceptors/error.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { HasRolesDirective } from './shared/directive/has-roles.directive';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { SharedModule } from './shared/shared.module';
     NavComponent,
     HomeComponent,
     NotFoundComponent,
+    HasRolesDirective
   ],
   imports: [
     BrowserModule,
@@ -28,13 +31,14 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     HttpClientModule,
     NgxSpinnerModule,
+    CommonModule
   ],
   providers: [
      {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
      {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
      {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

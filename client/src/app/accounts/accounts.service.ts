@@ -54,6 +54,7 @@ export class AccountsService {
           localStorage.setItem('token', user.token);
          // this.decodedToken = this.jwtHelper.decodeToken(user.token);
           this.occupation = user.occupation;
+          this.setCurrentUser(user);
           this.currentUserSource.next(user);
         }
       })
@@ -72,16 +73,27 @@ export class AccountsService {
         if (user) {
           this.currentUser = user;
           localStorage.setItem('token', user.token);
+          this.setCurrentUser(user);
           this.currentUserSource.next(user);
           return user;
         }
       })
     );
   }
-
+  setCurrentUser(user: IUser): void {
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role;
+    Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSource.next(user);
+  }
+  getDecodedToken(token): any {
+    return JSON.parse(atob(token.split('.')[1]));
+  }
   // tslint:disable-next-line:typedef
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.currentUser = null;
     this.currentUserSource.next(null);
     this.router.navigateByUrl('/');

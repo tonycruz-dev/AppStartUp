@@ -49,30 +49,28 @@ namespace API.Infrastructure.Services
 
             return tokenHandler.WriteToken(token);
         }
-
         public async Task<string> CreateTokenAsync(AppUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.GivenName, user.NickName),
                 new Claim(JwtRegisteredClaimNames.FamilyName, user.Occupation),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
             };
 
             var roles = await _userManager.GetRolesAsync(user);
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
-
+ 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(7),
-                SigningCredentials = creds,
-                Issuer = _config["Token:Issuer"]
+                Issuer = _config["Token:Issuer"],
+                SigningCredentials = creds
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -81,5 +79,37 @@ namespace API.Infrastructure.Services
 
             return tokenHandler.WriteToken(token);
         }
+
+        //public async Task<string> CreateTokenAsync(AppUser user)
+        //{
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        //        new Claim(JwtRegisteredClaimNames.GivenName, user.NickName),
+        //        new Claim(JwtRegisteredClaimNames.FamilyName, user.Occupation),
+        //    };
+
+        //    var roles = await _userManager.GetRolesAsync(user);
+        //    foreach (var role in roles)
+        //    {
+        //        claims.Add(new Claim(ClaimTypes.Role, role));
+        //    }
+
+        //    var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+        //    var tokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(claims),
+        //        Expires = DateTime.Now.AddDays(7),
+        //        SigningCredentials = creds,
+        //        Issuer = _config["Token:Issuer"]
+        //    };
+
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+
+        //    var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        //    return tokenHandler.WriteToken(token);
+        //}
     }
 }

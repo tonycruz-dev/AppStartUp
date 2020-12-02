@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountsService } from './accounts/accounts.service';
+import { IUser } from './shared/models/User';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,15 @@ export class AppComponent implements OnInit {
   }
 
   loadCurrentUser(): void {
-    const token = localStorage.getItem('token');
-    this.accountService.loadCurrentUser(token).subscribe(() => {
-      console.log('loaded user');
-    }, error => {
-      console.log(error);
-    });
+    const user: IUser = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      this.accountService.setCurrentUser(user);
+    }
+  //   const token = localStorage.getItem('token');
+  //   this.accountService.loadCurrentUser(token).subscribe(() => {
+  //     console.log('loaded user');
+  //   }, error => {
+  //     console.log(error);
+  //   });
   }
 }

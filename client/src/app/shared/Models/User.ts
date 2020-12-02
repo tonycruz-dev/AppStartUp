@@ -4,4 +4,6 @@ export interface IUser {
     avatar: string;
     token: string;
     occupation: string;
+    nickName: string;
+    roles: string[];
 }

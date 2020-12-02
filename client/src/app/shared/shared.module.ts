@@ -13,6 +13,7 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 
 
+
 @NgModule({
   declarations: [TextInputComponent, ConfirmDialogComponent, RolesModalComponent],
   imports: [
@@ -39,7 +40,9 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     ToastrModule,
     PaginationModule,
     BsDatepickerModule,
-    ModalModule
+    ModalModule,
+    ConfirmDialogComponent,
+    RolesModalComponent,
   ]
 })
 export class SharedModule { }

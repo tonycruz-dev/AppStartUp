@@ -20,6 +20,7 @@ export class NavComponent implements OnInit {
     this.currentUser$ = this.accountService.currentUser$;
     this.accountService.currentUser$.subscribe(user => {
       this.userDetails = user;
+      console.log(user);
     });
   }
 
