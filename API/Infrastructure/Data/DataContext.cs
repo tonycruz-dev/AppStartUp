@@ -15,6 +15,7 @@ namespace API.Infrastructure.Data
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet <View_UsersAndRoule> View_UsersAndRoules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +33,15 @@ namespace API.Infrastructure.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
+            //eb.HasNoKey();
+            //eb.ToView("vwRoomsOccupied");
+
+            modelBuilder
+            .Entity<View_UsersAndRoule>(eb =>
+            {
+                eb.HasNoKey();
+                eb.ToView("View_UsersAndRoules");
+            });
 
 
         }

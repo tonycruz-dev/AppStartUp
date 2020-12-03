@@ -24,7 +24,7 @@ namespace API.Infrastructure.Data
                 if (users == null) return;
                 var roles = new List<IdentityRole>
                 {
-                    new IdentityRole {Name = "Member"},
+                    new IdentityRole {Name = "Member", },
                     new IdentityRole {Name = "Admin"},
                     new IdentityRole {Name = "Manager"},
                 };
@@ -57,7 +57,7 @@ namespace API.Infrastructure.Data
                 };
 
                 await userManager.CreateAsync(admin, "Pa$$w0rd");
-                await userManager.AddToRolesAsync(admin, new[] { "Admin", "Manager", "Manager" });
+                await userManager.AddToRolesAsync(admin, new[] { "Admin", "Member", "Manager" });
 
                 var customerData = await System.IO.File.ReadAllTextAsync("Infrastructure/Data/Customers.json");
                 var customers = JsonSerializer.Deserialize<List<CustomerJson>>(customerData);
