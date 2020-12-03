@@ -5,5 +5,6 @@ export interface IUser {
     token: string;
     occupation: string;
     nickName: string;
+    userName: string;
     roles: string[];
 }

@@ -27,7 +27,7 @@ namespace API.Controllers
 
         [Authorize()]
         [HttpGet("users-with-roles")]
-        public async Task<ActionResult> GetUsersWithRoles()
+        public ActionResult GetUsersWithRoles()
         {
             var viewUsers = _context.View_UsersAndRoules;
             var userList = viewUsers.ToList();
@@ -44,7 +44,8 @@ namespace API.Controllers
                         {
                             Id = item.Id,
                             UserName = item.UserName,
-                            NickName = item.NickName
+                            NickName = item.NickName,
+                            Email = item.Email
                         };
                         itemToAdd.Roles.Add(item.Name);
 
@@ -61,7 +62,8 @@ namespace API.Controllers
                     {
                         Id = item.Id,
                         UserName = item.UserName,
-                        NickName = item.NickName
+                        NickName = item.NickName,
+                        Email = item.Email
                     };
                     itemToAdd.Roles.Add(item.Name);
 
@@ -69,60 +71,14 @@ namespace API.Controllers
                 }
                
             }
-            
-
-            var users = await _userManager.Users
-                .Include(r => r.UserRoles)
-                .ThenInclude(r => r.Role)
-                .OrderBy(u => u.UserName)
-                .Select(u => new
-                {
-                    u.Id,
-                    Username = u.UserName,
-                    Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
-                })
-                .ToListAsync();
 
             return Ok(userToreturn);
         }
 
-        //[Authorize()]
-        //[HttpGet("users-with-roles")]
-        //public async Task<ActionResult> GetUsersWithRoles()
-        //{
-
-        //    var sql = @"SELECT [a].[Id], [a].[NickName], [t0].[Name], [t0].[UserId], [t0].[RoleId], [t0].[Id]
-        //                FROM [AspNetUsers] AS [a]
-        //                LEFT JOIN (
-        //                    SELECT [t].[Name], [a0].[UserId], [a0].[RoleId], [t].[Id]
-        //                    FROM [AspNetUserRoles] AS [a0]
-        //                    INNER JOIN (
-        //                        SELECT [a1].[Id], [a1].[Name]
-        //                        FROM [AspNetRoles] AS [a1]
-        //                    ) AS [t] ON [a0].[RoleId] = [t].[Id]
-        //                ) AS [t0] ON [a].[Id] = [t0].[UserId]
-        //                ORDER BY [a].[UserName], [a].[Id], [t0].[UserId], [t0].[RoleId], [t0].[Id]";
-
-        //    var dbUser = await _context.Users
-        //                 .FromSqlRaw(sql).ToListAsync();
-        //    //.ToList();
-        //    //var users = await _userManager.Users
-        //    //    .Include(r => r.UserRoles)
-        //    //    .ThenInclude(r => r.Role)
-        //    //    .OrderBy(u => u.UserName)
-        //    //    .Select(u => new
-        //    //    {
-        //    //        u.Id,
-        //    //        NickName = u.NickName,
-        //    //        Roles = u.UserRoles.Select(r => r.Role.Name).ToList()
-        //    //    })
-        //    //    .ToListAsync();
-
-        //    // return Ok(users);
-        //}
+        
 
         [Authorize()]
-        [HttpPost("edit -roles/{username}")]
+        [HttpPost("edit-roles/{username}")]
         public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles)
         {
             var selectedRoles = roles.Split(",").ToArray();

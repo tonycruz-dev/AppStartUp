@@ -8,7 +8,8 @@ namespace API.Infrastructure.Data.Migrations
         {
             migrationBuilder.Sql(
                 @"CREATE VIEW dbo.View_UsersAndRoules AS
-                       SELECT  a.Id, a.UserName, a.NickName, t0.Name, t0.UserId, t0.RoleId, t0.Id AS RoleId2
+                       SELECT  a.Id, a.UserName, a.NickName, 
+                        t0.Name, t0.UserId,a.Email, t0.RoleId, t0.Id AS RoleId2
                        FROM  dbo.AspNetUsers AS a LEFT OUTER JOIN (
                        SELECT t.Name, a0.UserId, a0.RoleId, t.Id FROM dbo.AspNetUserRoles AS a0 
                        INNER JOIN (
