@@ -45,7 +45,7 @@
       <a routerLink="/errors" class="nav-link text-muted" routerLinkActive="active">Test Error</a>
     </ng-container>
     <ng-container *ngIf="(currentUser$ | async) as user">
-       <a class="nav-link" *ngIf="user.occupation==='Admin'" routerLink='/account/admin' routerLinkActive='active'>Admin</a>
+       <a *appHasUserRole='["Admin", "Manager"]' class="nav-link" routerLink='/account/admin' routerLinkActive='active'>Admin</a>
     </ng-container>
 
   </nav>

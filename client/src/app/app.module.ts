@@ -14,6 +14,7 @@ import {ErrorInterceptor} from './shared/interceptors/error.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { HasRolesDirective } from './shared/directive/has-roles.directive';
 import { CommonModule } from '@angular/common';
+import { HasUserRoleDirective } from './directive/has-user-role.directive';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CommonModule } from '@angular/common';
     NavComponent,
     HomeComponent,
     NotFoundComponent,
-    HasRolesDirective
+    HasRolesDirective,
+    HasUserRoleDirective
   ],
   imports: [
     BrowserModule,

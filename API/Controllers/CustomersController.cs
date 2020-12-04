@@ -18,12 +18,14 @@ namespace API.Controllers
     public class CustomersController : BaseController
     {
         private readonly ICustomerService _customerService;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
 
-        public CustomersController(ICustomerService customerService, UserManager<AppUser> userManager, IMapper mapper)
+        public CustomersController(IUnitOfWork unitOfWork, UserManager<AppUser> userManager, IMapper mapper)
         {
-            _customerService = customerService;
+            //_customerService = customerService;
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _mapper = mapper;
         }
@@ -31,7 +33,7 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<CustomerDto>>> GetCustomer()
         {
             var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
-            return Ok(await _customerService.GetCustomersAsyc());
+            return Ok(await _unitOfWork.CustomerService.GetCustomersAsyc());
            // var returnResults = _mapper.Map<List<Customer>, List<CustomerDto>>((List<Customer>)customers);
             //return Ok(returnResults);
         }
@@ -39,7 +41,7 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<CustomerDto>>> GetCustomerWithPagination([FromQuery]CustomerParams customerParams)
         {
             var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
-            var results = await _customerService.GetPaginationCustomersAsyc(customerParams);
+            var results = await _unitOfWork.CustomerService.GetPaginationCustomersAsyc(customerParams);
             Response.AddPaginationHeader(results.CurrentPage, results.PageSize, results.TotalCount, results.TotalPages);
             return Ok(results);
             // var returnResults = _mapper.Map<List<Customer>, List<CustomerDto>>((List<Customer>)customers);
@@ -50,7 +52,7 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
 
-            return Ok(await _customerService.GetCustomersByUserIdAsyc(id));
+            return Ok(await _unitOfWork.CustomerService.GetCustomersByUserIdAsyc(id));
             //var returnResults = _mapper.Map<List<Customer>, List<CustomerDto>>((List<Customer>)customers);
            // return Ok(returnResults);
         }
@@ -59,7 +61,7 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
 
-           return Ok(await _customerService.GetCustomerByIdAsync(id));
+           return Ok(await _unitOfWork.CustomerService.GetCustomerByIdAsync(id));
         }
         [HttpPost("AddCustomer")]
         public async Task<ActionResult<CustomerDto>> PostAddCandidate(CustomerDto customer)
@@ -70,7 +72,7 @@ namespace API.Controllers
                 var itemToMap = _mapper.Map<CustomerDto, Customer>(customer);
                 itemToMap.AppUserId = user.Id;
                 itemToMap.AppUser = user;
-                var createdCustomer = await _customerService.AddCustomerAsync(itemToMap);
+                var createdCustomer = await _unitOfWork.CustomerService.AddCustomerAsync(itemToMap);
                 var ReturnToMap = _mapper.Map<CustomerDto, Customer>(customer);
                 return Ok(ReturnToMap);
             }
@@ -85,7 +87,7 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
             var itemToMap = _mapper.Map<CustomerDto, Customer>(customer);
-            var updateCustomer = await _customerService.UpdateCustomerAsync(itemToMap);
+            var updateCustomer = await _unitOfWork.CustomerService.UpdateCustomerAsync(itemToMap);
 
             return Ok(_mapper.Map<Customer, CustomerDto>(updateCustomer));
         }
@@ -99,7 +101,7 @@ namespace API.Controllers
             //{
             //    return NotFound();
             //}
-            var deletedCustomer = await _customerService.DeleteCustomerAsync(id);
+            var deletedCustomer = await _unitOfWork.CustomerService.DeleteCustomerAsync(id);
 
             var mapResult = _mapper.Map<Customer, CustomerDto>(deletedCustomer);
 

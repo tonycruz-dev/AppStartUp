@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace API.Core.Entities
 {
-    public class AppRole: IdentityRole
-    {
-        public ICollection<AppUserRole> UserRoles { get; set; }
-    }
+    //public class AppRole: IdentityRole
+    //{
+    //    public ICollection<AppUserRole> UserRoles { get; set; }
+    //}
 }

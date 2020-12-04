@@ -100,7 +100,7 @@ namespace API.Controllers
             return Ok(await _userManager.GetRolesAsync(user));
         }
 
-        [Authorize(Policy = "ModeratePhotoRole")]
+        [Authorize()]
         [HttpGet("photos-to-moderate")]
         public ActionResult GetPhotosForModeration()
         {
