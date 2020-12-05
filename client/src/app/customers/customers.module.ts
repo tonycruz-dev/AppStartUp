@@ -8,10 +8,17 @@ import { CustomerDeleteComponent } from './customer-delete/customer-delete.compo
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { SharedModule } from '../shared/shared.module';
+import { CustomerEditModalComponent } from './modals/customer-edit-modal/customer-edit-modal.component';
 
 
 @NgModule({
-  declarations: [CustomerHomeComponent, CustomerEditComponent, CustomerDeleteComponent, CustomerDetailComponent, CustomerAddComponent],
+  declarations: [
+    CustomerHomeComponent,
+    CustomerEditComponent,
+    CustomerDeleteComponent,
+    CustomerDetailComponent,
+    CustomerAddComponent,
+    CustomerEditModalComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,

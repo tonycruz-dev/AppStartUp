@@ -53,7 +53,7 @@
                 {{cust.gender}}
             </td>
             <td style="text-align: right">
-                <a title="Edit"  [routerLink]="['edithouse', cust.id]"><i class="fa fa-edit"></i></a> |
+                <button class="btn btn-outline-primary" (click)="openEditModal(cust)"><i class="fa fa-edit"></i></button> |
                 <a title="Print" [routerLink]="['printdetails', cust.id]"><i class="fa fa-print"></i></a> |
                 <a title="Delete" [routerLink]="['deletehouse', cust.id]" ><i class="fa fa-trash"></i></a>
             </td>
