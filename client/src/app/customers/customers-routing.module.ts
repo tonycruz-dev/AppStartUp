@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PreventUnsavedChangesGuard } from '../accounts/guards/prevent-unsaved-changes.guard';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { CustomerDeleteComponent } from './customer-delete/customer-delete.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
@@ -8,7 +9,7 @@ import { CustomerHomeComponent } from './customer-home/customer-home.component';
 
 const routes: Routes = [
   {path: '', component: CustomerHomeComponent},
-  { path: 'editcustomer/:id', component: CustomerEditComponent },
+  { path: 'editcustomer/:id', component: CustomerEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
   { path: 'detailcustomer/:id', component: CustomerDetailComponent },
   { path: 'deletecustomer/:id', component: CustomerDeleteComponent },
   { path: 'newcustomer', component: CustomerAddComponent },

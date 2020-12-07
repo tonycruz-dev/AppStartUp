@@ -9,6 +9,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 
@@ -24,6 +25,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     BsDropdownModule.forRoot(),
     ButtonsModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    TabsModule.forRoot(),
     PaginationModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
@@ -41,6 +43,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     PaginationModule,
     BsDatepickerModule,
     ModalModule,
+    TabsModule,
     ConfirmDialogComponent,
     RolesModalComponent,
   ]

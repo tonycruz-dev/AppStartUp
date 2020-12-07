@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AccountsService } from '../accounts/accounts.service';
@@ -29,6 +29,10 @@ export class CustomersService {
 
   // tslint:disable-next-line:typedef
   getCustomers(custParms: CustomerParams) {
+    const response = this.customerCache.get(Object.values(custParms).join('-'));
+    if (response) {
+      return of(response);
+    }
     let params = getPaginationHeaders(custParms.pageNumber, custParms.pageSize);
     // if (page !== null && itemPerPage !== null) {
     //   params.append('PageNumber', page.toString());
@@ -44,19 +48,10 @@ export class CustomersService {
     // params = params.append('orderBy', userParams.orderBy);
 
     return getPaginatedResult<ICustomer[]>( this.baseUrl + 'api/Customers/GetCustomerWithPagination', params, this.http)
-    .pipe(map(response => {
-      this.customerCache.set(Object.values(custParms).join('-'), response);
-      return response;
+    .pipe(map(result => {
+      this.customerCache.set(Object.values(custParms).join('-'), result);
+      return result;
     }));
-    // .pipe(
-    //   map(response => {
-    //     this.paginatedResult.result = response.body;
-    //     if (response.headers.get('Pagination') !== null) {
-    //       this.paginatedResult.pagination =  JSON.parse(response.headers.get('Pagination'));
-    //     }
-    //     return this.paginatedResult;
-    //   })
-    // );
   }
   // tslint:disable-next-line:typedef
   getCustomerParams() {
@@ -73,5 +68,25 @@ export class CustomersService {
     this.customerParams = new CustomerParams();
     return this.customerParams;
   }
+  getCustomerById(id: number): Observable<ICustomer>  {
+    const findCustomer = [...this.customerCache.values()]
+    .reduce((arr, elem) => arr.concat(elem.result), [])
+    .find((customer: ICustomer) => customer.id === id);
+
+    if (findCustomer) {
+      return of(findCustomer);
+    }
+    return this.http.get<ICustomer>(this.baseUrl + `api/Customers/GetCustomersById/${id}`);
+  }
+
+  updateCustomer(customer: ICustomer): Observable<void> {
+      return this.http.put(this.baseUrl + 'api/Customers/UpdateCustomer', customer)
+      .pipe(map(() => {
+        const index = this.paginatedResult.result.indexOf(customer);
+        this.paginatedResult.result[index] = customer;
+      })
+      );
+  }
+
 
 }

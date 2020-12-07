@@ -1,1 +1,257 @@
-<p>customer-edit works!</p>
+
+<div *ngIf="customer"  class="row">
+    <div class="col-4">
+        <h1>Edit Customer</h1>
+    </div>
+    <div class="col-8">
+        <div class="alert alert-info" *ngIf="editForm.dirty">
+            <strong>Information: </strong> You have made changes.  Any unsaved changes will be lost
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img src="{{customer.photoUrl || './assets/user.png'}}" alt="{{customer.customerName}}" 
+                class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Address:</strong>
+                    <p>{{customer.address1}}, {{customer.address5}}</p>
+                </div>
+                <div>
+                    <strong>DOB:</strong>
+                    <p>{{customer.dateOfBirth | date: 'dd-MMM-yyyy'}}</p>
+                </div>
+                <div>
+                    <strong>Gender:</strong>
+                    <p>{{customer.gender}}</p>
+                </div>
+                <div>
+                    <strong>Company Name:</strong>
+                    <p>{{customer.companyName}}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button [disabled]="!editForm.dirty" form="editForm" type="submit" class="btn btn-success btn-block">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <form novalidate #editForm="ngForm">
+           <tabset class="member-tabset" #customersTabs>
+                <tab heading='About {{customer.customerName}}' (selectTab)="onTabActivated($event)">
+                    <div class="form-group">
+                      <label class="control-label"> Customer Name</label>
+                      <div class="input-group">
+                        <input
+                          placeholder="Name (required)"
+                          required
+                          [(ngModel)]="customerEdit.customerName"
+                          name="customerName"
+                          #customerNameVar="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              (customerNameVar.touched || customerNameVar.dirty) &&
+                              !customerNameVar.valid
+                          }"
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"
+                            ><span class="fa fa-road"></span
+                          ></span>
+                        </div>
+                      </div>
+                      <span *ngIf="customerNameVar.errors?.required" class="text-danger">
+                        Please enter Company Name.
+                      </span>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label"> Company Name</label>
+                      <div class="input-group">
+                        <input
+                          placeholder="Name (required)"
+                          required
+                          [(ngModel)]="customerEdit.companyName"
+                          name="companyName"
+                          #companyNameVar="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              (companyNameVar.touched || companyNameVar.dirty) &&
+                              !companyNameVar.valid
+                          }"
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"
+                            ><span class="fa fa-road"></span
+                          ></span>
+                        </div>
+                      </div>
+                      <span *ngIf="companyNameVar.errors?.required" class="text-danger">
+                        Please enter Company Name.
+                      </span>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label"> Address</label>
+                      <div class="input-group">
+                        <input
+                          placeholder="Address (required)"
+                          required
+                          [(ngModel)]="customerEdit.address1"
+                          name="address1"
+                          #address1Var="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              (address1Var.touched || address1Var.dirty) && !address1Var.valid
+                          }"
+                          class="form-control"
+                        />
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2"
+                            ><span class="fa fa-road"></span
+                          ></span>
+                        </div>
+                      </div>
+                      <span *ngIf="address1Var.errors?.required" class="text-danger">
+                        Please enter your Address.
+                      </span>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <div class="input-group">
+                          <input
+                            placeholder="Address (required)"
+                            required
+                            [(ngModel)]="customerEdit!.address2"
+                            name="address2"
+                            #address2Var="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                (address2Var.touched || address2Var.dirty) && !address2Var.valid
+                            }"
+                            class="form-control"
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2"
+                              ><span class="fa fa-road"></span
+                            ></span>
+                          </div>
+                        </div>
+                        <span *ngIf="address2Var.errors?.required" class="text-danger">
+                          Address is required
+                        </span>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <div class="input-group">
+                          <input
+                            placeholder="Address (required)"
+                            required
+                            [(ngModel)]="customerEdit!.address3"
+                            name="address3"
+                            #address3Var="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                (address3Var.touched || address3Var.dirty) && !address3Var.valid
+                            }"
+                            class="form-control"
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2"
+                              ><span class="fa fa-road"></span
+                            ></span>
+                          </div>
+                        </div>
+                        <span *ngIf="address3Var.errors?.required" class="text-danger">
+                          Address is required
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <div class="input-group">
+                          <input
+                            placeholder="Address (required)"
+                            required
+                            [(ngModel)]="customerEdit!.address4"
+                            name="address4"
+                            #address4Var="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                (address4Var.touched || address4Var.dirty) && !address4Var.valid
+                            }"
+                            class="form-control"
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2"
+                              ><span class="fa fa-road"></span
+                            ></span>
+                          </div>
+                        </div>
+                        <span *ngIf="address4Var.errors?.required" class="text-danger">
+                          Address is required
+                        </span>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <div class="input-group">
+                          <input
+                            placeholder="Address (required)"
+                            required
+                            [(ngModel)]="customerEdit!.address5"
+                            name="address5"
+                            #address5Var="ngModel"
+                            [ngClass]="{
+                              'is-invalid':
+                                (address5Var.touched || address5Var.dirty) && !address5Var.valid
+                            }"
+                            class="form-control"
+                          />
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2"
+                              ><span class="fa fa-road"></span
+                            ></span>
+                          </div>
+                        </div>
+                        <span *ngIf="address5Var.errors?.required" class="text-danger">
+                          Address is required
+                        </span>
+                      </div>
+                    </div>
+                    <hr style="margin: 6px;" />
+                      <div class="form-row">
+                        <div class="form-group col-md-12">
+                          <label class="control-label">Date of Birth</label>
+                          <div class="input-group">
+                            <input
+                               type="text"
+                               bsDatepicker
+                               name="dateFrom"
+                               [(ngModel)]="customerEdit.dateOfBirth"
+                               [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
+                               class="form-control"
+                               placement="top"
+                               [isOpen]="isOpenFrom">
+                            <div class="input-group-append">
+                              <span
+                                (click)="isOpenFrom = !isOpenFrom"
+                                class="input-group-text"
+                                id="basic-addon2"
+                                ><span class="fa fa-calendar"></span
+                              ></span>
+                            </div>
+                          </div>
+                          <span asp-validation-for="customerEdit.DateFrom" class="text-danger"></span>
+                        </div>
+                      </div>
+                 
+                </tab>
+                <tab heading='More Details'>
+                    <h4 class="mt-2">Note Info</h4>
+                    <textarea class="form-control" [(ngModel)]="customer.noteInfo" name="noteInfo" rows="10"></textarea>
+                    <h4 class="mt-2">More Info</h4>
+                    <textarea class="form-control" [(ngModel)]="customer.noteInfo" name="noteInfo" rows="6"></textarea>
+                </tab>
+            </tabset>
+        </form>
+    </div>
+</div>
+
