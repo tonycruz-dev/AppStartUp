@@ -8,7 +8,7 @@ import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
 
 const routes: Routes = [
-  {path: '', component: CustomerHomeComponent},
+  { path: '', component: CustomerHomeComponent},
   { path: 'editcustomer/:id', component: CustomerEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
   { path: 'detailcustomer/:id', component: CustomerDetailComponent },
   { path: 'deletecustomer/:id', component: CustomerDeleteComponent },
