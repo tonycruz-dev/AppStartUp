@@ -93,5 +93,126 @@ namespace API.Infrastructure.Services
                 .ConfigurationProvider).AsNoTracking(),
                     customerParams.PageNumber, customerParams.PageSize);
         }
+
+        // Manage JobItems
+        public async Task<JobItem> AddJobItemAsync(JobItem jobItem)
+        {
+            _context.JobItems.Add(jobItem);
+            await _context.SaveChangesAsync();
+            return jobItem;
+        }
+
+        public async Task<JobItem> UpdateJobItemAsync(JobItem jobItem)
+        {
+            _context.Entry(jobItem).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return jobItem;
+        }
+
+        public async Task<JobItemDto> GetJobItemByIdAsync(int Id)
+        {
+            return await _context
+               .JobItems
+               .ProjectTo<JobItemDto>(_mapper.ConfigurationProvider)
+               .SingleOrDefaultAsync(cus => cus.Id == Id);
+        }
+
+        public async Task<IReadOnlyList<JobItemDto>> GetJobItemByCustomerIdAsync(int customerId)
+        {
+            return await _context
+              .JobItems
+              .Where(ji => ji.CustomerId == customerId)
+              .ProjectTo<JobItemDto>(_mapper.ConfigurationProvider)
+              .ToListAsync();
+        }
+        public async Task<JobItem> DeleteJobItemAsync(int Id)
+        {
+            var cpd = await _context.JobItems
+                .FirstOrDefaultAsync(cp => cp.Id == Id);
+            _context.JobItems.Remove(cpd);
+            await _context.SaveChangesAsync();
+            return cpd;
+        }
+
+        // Invoice Manager
+        public async Task<Invoice> AddInvoiceAsync(Invoice invoice)
+        {
+            _context.Invoices.Add(invoice);
+            await _context.SaveChangesAsync();
+            return invoice;
+        }
+
+        public async Task<Invoice> UpdateInvoiceAsync(Invoice invoice)
+        {
+            _context.Entry(invoice).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return invoice;
+        }
+
+        public async Task<InvoiceDto> GetInvoiceByIdAsync(int Id)
+        {
+            return await _context
+              .Invoices
+              .ProjectTo<InvoiceDto>(_mapper.ConfigurationProvider)
+              .SingleOrDefaultAsync(cus => cus.Id == Id);
+        }
+
+        public async Task<IReadOnlyList<InvoiceDto>> GeInvoiceByCustomerIdAsync(int customerId)
+        {
+            return await _context
+               .Invoices
+               .Where(inv => inv.CustomerId == customerId)
+               .ProjectTo<InvoiceDto>(_mapper.ConfigurationProvider)
+               .ToListAsync();
+        }
+
+        public async Task<Invoice> DeleteInvoiceAsync(int Id)
+        {
+            var cpd = await _context.Invoices
+               .FirstOrDefaultAsync(cp => cp.Id == Id);
+            _context.Invoices.Remove(cpd);
+            await _context.SaveChangesAsync();
+            return cpd;
+        }
+
+        public async Task<InvoiceItem> AddInvoiceItemAsync(InvoiceItem invoiceItem)
+        {
+            _context.InvoiceItems.Add(invoiceItem);
+            await _context.SaveChangesAsync();
+            return invoiceItem;
+        }
+
+        public async Task<InvoiceItem> UpdateInvoiceItemAsync(InvoiceItem invoiceItem)
+        {
+            _context.Entry(invoiceItem).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return invoiceItem;
+        }
+
+        public async Task<InvoiceItemDto> GetInvoiceItemByIdAsync(int Id)
+        {
+            return await _context
+             .InvoiceItems
+             .ProjectTo<InvoiceItemDto>(_mapper.ConfigurationProvider)
+             .SingleOrDefaultAsync(cus => cus.Id == Id);
+        }
+
+        public async Task<IReadOnlyList<InvoiceItemDto>> GeInvoiceItemByCustomerIdAsync(int customerId)
+        {
+            return await _context
+               .InvoiceItems
+               .Where(inv => inv.Id == customerId)
+               .ProjectTo<InvoiceItemDto>(_mapper.ConfigurationProvider)
+               .ToListAsync();
+        }
+
+        public async Task<InvoiceItem> DeleteInvoiceItemAsync(int Id)
+        {
+            var cpd = await _context.InvoiceItems
+               .FirstOrDefaultAsync(cp => cp.Id == Id);
+            _context.InvoiceItems.Remove(cpd);
+            await _context.SaveChangesAsync();
+            return cpd;
+        }
     }
 }

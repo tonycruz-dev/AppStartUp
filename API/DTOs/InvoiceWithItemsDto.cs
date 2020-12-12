@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace API.Core.Entities
+namespace API.DTOs
 {
-    public class Invoice
+    public class InvoiceWithItemsDto
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
@@ -14,8 +16,7 @@ namespace API.Core.Entities
         public decimal TotalPaid { get; set; } = 0M;
         public DateTime? DatePaid { get; set; }
         public bool IsPosted { get; set; } = false;
-        public string InvoiceNote { get; set; }
-        public Customer Customer { get; set; }
-        public Collection<InvoiceItem> InvoiceItems { get; set; }
+
+        public List<InvoiceItemDto> InvoiceItems { get; set; }
     }
 }

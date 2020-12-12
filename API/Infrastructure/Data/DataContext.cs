@@ -15,6 +15,8 @@ namespace API.Infrastructure.Data
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceItem> InvoiceItems { get; set; }
+        public DbSet<JobItem> JobItems { get; set; }
         public DbSet <View_UsersAndRoule> View_UsersAndRoules { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,19 +24,6 @@ namespace API.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            //modelBuilder.Entity<AppUser>()
-            //    .HasMany(ur => ur.UserRoles)
-            //    .WithOne(u => u.User)
-            //    .HasForeignKey(ur => ur.UserId)
-            //    .IsRequired();
-
-            //modelBuilder.Entity<AppRole>()
-            //    .HasMany(ur => ur.UserRoles)
-            //    .WithOne(u => u.Role)
-            //    .HasForeignKey(ur => ur.RoleId)
-            //    .IsRequired();
-            //eb.HasNoKey();
-            //eb.ToView("vwRoomsOccupied");
 
             modelBuilder
             .Entity<View_UsersAndRoule>(eb =>

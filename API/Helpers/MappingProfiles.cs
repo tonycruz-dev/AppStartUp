@@ -13,7 +13,11 @@ namespace API.Helpers
         public MappingProfiles()
         {
             CreateMap<Customer, CustomerDto>().ReverseMap();
-            CreateMap<Invoice, CustomerDto>().ReverseMap();
+            CreateMap<Customer, CustomerWithJobItemDto>();
+            CreateMap<Customer, CustomerWithInvoiceDto>();
+            CreateMap<Invoice, InvoiceDto>().ReverseMap();
+            CreateMap<JobItem, JobItemDto>().ReverseMap();
+            CreateMap<Invoice, InvoiceItemDto>();
 
             //CreateMap<JobToRequest, JobToRequestToReturnDto>()
             //  .ForMember(d => d.TimeDetail, o => o.MapFrom(s => s.TimeDetail.Hour))

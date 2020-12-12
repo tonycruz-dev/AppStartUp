@@ -17,7 +17,7 @@ namespace API.Controllers
     [Authorize]
     public class CustomersController : BaseController
     {
-        private readonly ICustomerService _customerService;
+        // private readonly ICustomerService _customerService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;

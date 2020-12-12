@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace API.Core.Entities
+namespace API.DTOs
 {
-    public class Customer
+    public class CustomerWithJobItemDto
     {
         public int Id { get; set; }
         public string CustomerName { get; set; }
@@ -19,9 +20,6 @@ namespace API.Core.Entities
         public bool Discontinued { get; set; }
         public string PhotoUrl { get; set; }
         public string NoteInfo { get; set; }
-        public AppUser AppUser { get; set; }
-        public string AppUserId { get; set; }
-        public Collection<Invoice> Invoices { get; set; }
-        public Collection<JobItem> JobItems { get; set; }
+        public List<JobItemDto> JobItems { get; set; }
     }
 }
