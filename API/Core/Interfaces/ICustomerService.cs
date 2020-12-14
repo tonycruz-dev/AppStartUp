@@ -13,7 +13,7 @@ namespace API.Core.Interfaces
         // Customers
         Task<Customer> AddCustomerAsync(Customer customer);
         Task<Customer> UpdateCustomerAsync(Customer customer);
-        Task<CustomerDto> GetCustomerByIdAsync(int Id);
+        Task<CustomerWithJobItemDto> GetCustomerByIdAsync(int Id);
         Task<Customer> DeleteCustomerAsync(int Id);
         Task<IReadOnlyList<CustomerDto>> GetCustomersAsyc();
         Task<IReadOnlyList<CustomerDto>> GetCustomersByUserIdAsyc(string userId);

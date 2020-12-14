@@ -9,6 +9,8 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { SharedModule } from '../shared/shared.module';
 import { CustomerEditModalComponent } from './modals/customer-edit-modal/customer-edit-modal.component';
+import { EditJobItemComponent } from './modals/edit-job-item/edit-job-item.component';
+import { AddJobItemComponent } from './modals/add-job-item/add-job-item.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { CustomerEditModalComponent } from './modals/customer-edit-modal/custome
     CustomerDeleteComponent,
     CustomerDetailComponent,
     CustomerAddComponent,
-    CustomerEditModalComponent],
+    CustomerEditModalComponent,
+    EditJobItemComponent,
+    AddJobItemComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,

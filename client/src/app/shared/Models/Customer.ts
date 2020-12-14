@@ -1,3 +1,5 @@
+import { IJobItem } from './JobItem';
+
 export interface ICustomer {
     id: number;
     customerName: string;
@@ -12,6 +14,7 @@ export interface ICustomer {
     discontinued: boolean;
     photoUrl: string;
     noteInfo: string;
+    jobItems: IJobItem[];
 }
 export class Customer {
   id: number;

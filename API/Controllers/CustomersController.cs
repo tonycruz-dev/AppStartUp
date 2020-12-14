@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class CustomersController : BaseController
     {
         // private readonly ICustomerService _customerService;
@@ -29,6 +29,7 @@ namespace API.Controllers
             _userManager = userManager;
             _mapper = mapper;
         }
+        // Customers
         [HttpGet("GetCustomers")]
         public async Task<ActionResult<IReadOnlyList<CustomerDto>>> GetCustomer()
         {
@@ -106,6 +107,47 @@ namespace API.Controllers
             var mapResult = _mapper.Map<Customer, CustomerDto>(deletedCustomer);
 
             return mapResult;
+        }
+        [HttpGet("GetJobItemByCustomerId/{id}")]
+        public async Task<ActionResult<IReadOnlyList<JobItemDto>>> GetJobItem(int id)
+        {
+            var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+            return Ok(await _unitOfWork.CustomerService.GetJobItemByCustomerIdAsync(id));
+        }
+        [HttpPost("AddJobItem")]
+        public async Task<ActionResult<JobItemDto>> AddJobItem(JobItemDto jobItem)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+                var itemToMap = _mapper.Map<JobItemDto, JobItem>(jobItem);
+
+                var createdItem = await _unitOfWork.CustomerService.AddJobItemAsync(itemToMap);
+                var ReturnToMap = _mapper.Map<JobItem, JobItemDto>(createdItem);
+                return Ok(ReturnToMap);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return NotFound();
+            }
+        }
+        [HttpPut("UpdateJobItem")]
+        public async Task<ActionResult<CustomerDto>> UpdateJobItem(JobItemDto jobItem)
+        {
+            var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+            var itemToMap = _mapper.Map<JobItemDto, JobItem>(jobItem);
+            var updateJobItem = await _unitOfWork.CustomerService.UpdateJobItemAsync(itemToMap);
+
+            return Ok(_mapper.Map<JobItem, JobItemDto>(updateJobItem));
+        }
+        [HttpDelete("DeleteJobItem/{id}")]
+        public async Task<ActionResult<CustomerDto>> DeleteJobItem(int id)
+        {
+            var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+
+            var deletedJobItem = await _unitOfWork.CustomerService.DeleteJobItemAsync(id);
+            return Ok(_mapper.Map<JobItem, JobItemDto>(deletedJobItem));
         }
     }
 }

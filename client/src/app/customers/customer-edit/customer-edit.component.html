@@ -246,9 +246,35 @@
                 </tab>
                 <tab heading='More Details'>
                     <h4 class="mt-2">Note Info</h4>
-                    <textarea class="form-control" [(ngModel)]="customer.noteInfo" name="noteInfo" rows="10"></textarea>
+                    <textarea class="form-control" [(ngModel)]="customer.noteInfo" name="noteInfo" rows="12"></textarea>
                     <h4 class="mt-2">More Info</h4>
                     <textarea class="form-control" [(ngModel)]="customer.noteInfo" name="noteInfo" rows="6"></textarea>
+                </tab>
+                <tab heading='Jobs'>
+                  <button (click)="openAddJobItemModal()" type="button" class="btn btn-outline-primary btn-sm">Add New Job</button>
+                  <div *ngFor="let jobs of customer.jobItems">
+                   <hr>
+                  <div class="row"  >
+                    <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-10">
+                        <h5 class="product-name"><strong>{{jobs.title}}</strong></h5>
+                        <h6  class="col-10 text-truncate" style="max-width:150; max-height: 20px;">
+                            <small class="fs-4">{{jobs.jobDescription}}</small>
+                        </h6>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-2" style="display: flex; justify-content: flex-end">
+                        <div class="float: right" style="padding-top: 5px;">
+                            <h6><strong>{{jobs.amount | currency:'GBP'}}</strong></h6>
+                            <button type="button" class="btn btn-outline-danger btn-xs">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" (click)="openEditModal(jobs)" class="btn btn-outline-info btn-xs ml-1">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+                  </div>
+                   
                 </tab>
             </tabset>
         </form>

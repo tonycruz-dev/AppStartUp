@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AccountsService } from '../accounts/accounts.service';
 import { ICustomer } from '../shared/Models/Customer';
 import { CustomerParams } from '../shared/Models/customerParams';
+import { IJobItem } from '../shared/Models/JobItem';
 import { PaginatedResult } from '../shared/Models/pagination';
 import { getPaginatedResult, getPaginationHeaders } from '../shared/Models/paginationHelper';
 import { IUser } from '../shared/models/User';
@@ -69,16 +70,21 @@ export class CustomersService {
     return this.customerParams;
   }
   getCustomerById(id: number): Observable<ICustomer>  {
-    const findCustomer = [...this.customerCache.values()]
-    .reduce((arr, elem) => arr.concat(elem.result), [])
-    .find((customer: ICustomer) => customer.id === id);
+    // const findCustomer = [...this.customerCache.values()]
+    // .reduce((arr, elem) => arr.concat(elem.result), [])
+    // .find((customer: ICustomer) => customer.id === id);
 
-    if (findCustomer) {
-      return of(findCustomer);
-    }
+    // if (findCustomer) {
+    //   return of(findCustomer);
+    // }
     return this.http.get<ICustomer>(this.baseUrl + `api/Customers/GetCustomersById/${id}`);
   }
-
+  UpdateJobItem(jobItem: IJobItem): Observable<IJobItem> {
+     return this.http.put<IJobItem>(this.baseUrl + 'api/Customers/UpdateJobItem', jobItem);
+  }
+  addJobItem(jobItem: IJobItem): Observable<IJobItem> {
+    return this.http.post<IJobItem>(this.baseUrl + 'api/Customers/AddJobItem', jobItem);
+ }
   updateCustomer(customer: ICustomer): Observable<void> {
       return this.http.put(this.baseUrl + 'api/Customers/UpdateCustomer', customer)
       .pipe(map(() => {

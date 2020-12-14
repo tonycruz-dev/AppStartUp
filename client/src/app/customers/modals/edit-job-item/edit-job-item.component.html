@@ -1,0 +1,129 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">
+      Edit Job {{ jobItem.title }}
+    </h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form novalidate (ngSubmit)="save(houseForm)" #houseForm="ngForm">
+      <div class="form-group">
+        <label class="control-label"> Customer Name</label>
+        <div class="input-group">
+          <input
+            placeholder="Name (required)"
+            required
+            [(ngModel)]="jobItem.title"
+            name="title"
+            #titleVar="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (titleVar.touched || titleVar.dirty) &&
+                !titleVar.valid
+            }"
+            class="form-control"
+          />
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2"
+              ><span class="fa fa-header"></span
+            ></span>
+          </div>
+        </div>
+        <span *ngIf="titleVar.errors?.required" class="text-danger">
+          Please enter Title.
+        </span>
+      </div>
+      <div class="form-group">
+        <label class="control-label"> Job Description</label>
+        <div class="input-group">
+            <textarea 
+                  class="form-control" 
+                  placeholder="Job Description (required)"
+                  required
+                  [(ngModel)]="jobItem.jobDescription" 
+                  #jobDescriptionVar="ngModel"
+                  [ngClass]="{
+                    'is-invalid':
+                      (jobDescriptionVar.touched || jobDescriptionVar.dirty) &&
+                      !jobDescriptionVar.valid
+                  }"
+                  name="jobDescription" rows="6">
+
+            </textarea>
+
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2"
+              ><span class="fa fa-commenting"></span
+            ></span>
+          </div>
+        </div>
+        <span *ngIf="jobDescriptionVar.errors?.required" class="text-danger">
+          Please enter Description.
+        </span>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label class="control-label">Date of Birth</label>
+          <div class="input-group">
+            <input
+               type="text"
+               bsDatepicker
+               name="dateFrom"
+               [(ngModel)]="jobItem.jobDate"
+               [bsConfig]="{dateInputFormat: 'DD-MM-YYYY'}"
+               class="form-control"
+               placement="top"
+               [isOpen]="isOpenFrom">
+            <div class="input-group-append">
+              <span
+                (click)="isOpenFrom = !isOpenFrom"
+                class="input-group-text"
+                id="basic-addon2"
+                ><span class="fa fa-calendar"></span
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <div class="input-group">
+            <input type="number"
+              placeholder="Amount (required)"
+              required
+              [(ngModel)]="jobItem.amount"
+              name="amount"
+              #amountVar="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (amountVar.touched || amountVar.dirty) && !amountVar.valid
+              }"
+              class="form-control"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2"
+                ><span class="fa fa-gbp"></span
+              ></span>
+            </div>
+          </div>
+          <span *ngIf="amountVar.errors?.required" class="text-danger">
+            Address is required
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-success" (click)="updateRoles()">
+      Submit
+    </button>
+  </div>

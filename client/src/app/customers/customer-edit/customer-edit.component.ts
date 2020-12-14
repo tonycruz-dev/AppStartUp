@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Customer, ICustomer } from './../../shared/Models/Customer';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CustomersService } from '../customers.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
+import { EditJobItemComponent } from '../modals/edit-job-item/edit-job-item.component';
+import { IJobItem, JobItem } from 'src/app/shared/Models/JobItem';
+import { AddJobItemComponent } from '../modals/add-job-item/add-job-item.component';
 
 @Component({
   selector: 'app-customer-edit',
@@ -18,6 +22,7 @@ export class CustomerEditComponent implements OnInit {
   customer: ICustomer;
   isOpenFrom = false;
   activeTab: TabDirective;
+  bsModalRef: BsModalRef;
 
   // tslint:disable-next-line:typedef
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
@@ -29,7 +34,8 @@ export class CustomerEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private customerServices: CustomersService) { }
+    private customerServices: CustomersService,
+    private modalService: BsModalService) { }
 
   ngOnInit(): void {
    this.loadCustomer();
@@ -43,6 +49,7 @@ export class CustomerEditComponent implements OnInit {
     .subscribe(response => {
       this.customer = response;
       console.log(this.customer);
+      console.log(this.customer.jobItems);
       this.customer.dateOfBirth = new Date(this.customer.dateOfBirth);
       this.customerEdit = response;
     });
@@ -56,6 +63,48 @@ export class CustomerEditComponent implements OnInit {
   }
   selectTab(tabId: number): void {
     this.customersTabs.tabs[tabId].active = true;
+  }
+
+  // tslint:disable-next-line:typedef
+  openEditModal(jobItem: IJobItem) {
+    const config = {
+      class: 'modal-dialog-centered modal-lg',
+      initialState: {
+        jobItem
+      }
+    };
+    this.bsModalRef = this.modalService.show(EditJobItemComponent, config);
+    this.bsModalRef.content.updateSelectedJobs.subscribe(values => {
+      console.log(values);
+      this.customerServices.UpdateJobItem(values).subscribe(() => {
+        this.toastr.success('Job Item was updated successfully');
+      });
+    });
+
+  }
+   // tslint:disable-next-line:typedef
+   openAddJobItemModal() {
+    // tslint:disable-next-line:prefer-const
+    let jobItem = new JobItem();
+    jobItem.title = '';
+    jobItem.jobDate =  new Date();
+    jobItem.jobDescription = '';
+    jobItem.amount = 0;
+    jobItem.customerId = this.customer.id;
+    const config = {
+      class: 'modal-dialog-centered modal-lg',
+      initialState: {
+        jobItem
+      }
+    };
+    this.bsModalRef = this.modalService.show(AddJobItemComponent, config);
+    this.bsModalRef.content.addSelectedJobs.subscribe(values => {
+      console.log(values);
+      this.customerServices.addJobItem(values).subscribe(() => {
+        this.toastr.success('Job Item was Add successfully');
+      });
+    });
+
   }
 
   onTabActivated(data: TabDirective): void {

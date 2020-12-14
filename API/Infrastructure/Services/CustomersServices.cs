@@ -61,11 +61,12 @@ namespace API.Infrastructure.Services
                 .ToListAsync();
         }
 
-        public async Task<CustomerDto> GetCustomerByIdAsync(int Id)
+        public async Task<CustomerWithJobItemDto> GetCustomerByIdAsync(int Id)
         {
             return await _context
                 .Customers
-                .ProjectTo<CustomerDto>(_mapper.ConfigurationProvider)
+                .Include(ji => ji.JobItems)
+                .ProjectTo<CustomerWithJobItemDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(cus => cus.Id == Id);
         }
 
@@ -79,10 +80,7 @@ namespace API.Infrastructure.Services
                    c => c.CompanyName.ToLower().Contains(customerParams.Search.ToLower()) || 
                    c.CustomerName.ToLower().Contains(customerParams.Search.ToLower()));
             }
-            //  != customerParams.CompanyName);
-            //query = query.Where(c => c.CustomerName.ToLower().Contains(customerParams.CustomerName.ToLower()));
-
-
+            
             query = customerParams.OrderBy switch
             {
                 "companyName" => query.OrderByDescending(u => u.Id),
