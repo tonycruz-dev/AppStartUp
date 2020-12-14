@@ -100,7 +100,8 @@ export class CustomerEditComponent implements OnInit {
     this.bsModalRef = this.modalService.show(AddJobItemComponent, config);
     this.bsModalRef.content.addSelectedJobs.subscribe(values => {
       console.log(values);
-      this.customerServices.addJobItem(values).subscribe(() => {
+      this.customerServices.addJobItem(values).subscribe((newJobItem) => {
+        this.customer.jobItems.push(newJobItem);
         this.toastr.success('Job Item was Add successfully');
       });
     });
