@@ -10,7 +10,7 @@
     </div>
     <div class="col-4">
         <div class="card">
-            <img src="{{customer.photoUrl || './assets/user.png'}}" alt="{{customer.customerName}}" 
+            <img src="{{customer.photoUrl || './assets/user.png'}}" alt="{{customer.customerName}}"
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
@@ -242,7 +242,7 @@
                           <span asp-validation-for="customerEdit.DateFrom" class="text-danger"></span>
                         </div>
                       </div>
-                 
+
                 </tab>
                 <tab heading='More Details'>
                     <h4 class="mt-2">Note Info</h4>
@@ -256,9 +256,10 @@
                    <hr>
                   <div class="row"  >
                     <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-10">
-                        <h5 class="product-name"><strong>{{jobs.title}}</strong></h5>
-                        <h6  class="col-10 text-truncate" style="max-width:150; max-height: 20px;">
+                        <h5 class="product-name"><strong>{{jobs.title}}</strong> on <small class="fa fa-clock-o fw-light"> </small><span class="fw-light"> {{jobs.jobDate | date: "dd MM yyyy"}}</span></h5>
+                        <h6  class="col-10 text-truncate" style="max-width:150; max-height: 35px;">
                             <small class="fs-4">{{jobs.jobDescription}}</small>
+
                         </h6>
                     </div>
                     <div class="col-12 col-sm-12 col-md-2" style="display: flex; justify-content: flex-end">
@@ -274,7 +275,7 @@
                     </div>
                   </div>
                   </div>
-                   
+
                 </tab>
                 <tab heading='Invoices'>
                   <button (click)="openAddInvoiceModal()" type="button" class="btn btn-outline-primary btn-sm">Add Invoice</button>

@@ -1,6 +1,7 @@
 ﻿Add-Migration AddJobItem -StartupProject API -Project Infrastructure -OutputDir Data/Migrations
 
 Add-Migration AddJobItemTitle
+Add-Migration AddInvoiceTitle
 
 https://www.json-generator.com/
 [

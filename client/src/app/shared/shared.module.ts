@@ -13,7 +13,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
-
+import { TimeagoModule } from 'ngx-timeago';
 
 
 @NgModule({
@@ -28,6 +28,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
     PaginationModule.forRoot(),
+    TimeagoModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
@@ -46,6 +47,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     BsDatepickerModule,
     ModalModule,
     TabsModule,
+    TimeagoModule,
     ConfirmDialogComponent,
     RolesModalComponent,
     UiSwitchModule
