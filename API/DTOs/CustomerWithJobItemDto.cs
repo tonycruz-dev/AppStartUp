@@ -21,5 +21,6 @@ namespace API.DTOs
         public string PhotoUrl { get; set; }
         public string NoteInfo { get; set; }
         public List<JobItemDto> JobItems { get; set; }
+        public List<InvoiceDto> invoices { get; set; }
     }
 }

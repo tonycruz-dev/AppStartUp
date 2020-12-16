@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left"> Invoice Name
+      <!-- add Invoice {{ invoiceEdit.id}} -->
+    </h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngFor="let job of listJobs">
+        <hr>
+       <div class="row"  >
+         <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-10">
+             <h5 class="product-name"><strong>{{job.title}}</strong></h5>
+             <h6  class="col-10 text-truncate" style="max-width:150; max-height: 20px;">
+                 <small class="fs-4">{{job.jobDescription}}</small>
+             </h6>
+         </div>
+         <div class="col-12 col-sm-12 col-md-2" style="display: flex; justify-content: flex-end">
+             <div class="float: right" style="padding-top: 5px;">
+                 <h6><strong>{{job.amount | currency:'GBP'}}</strong></h6>
+                 <ui-switch [(ngModel)]="job.isInvoiced" checkedLabel="Send To Invoice"
+                     uncheckedLabel="Job Item"></ui-switch>
+             </div>
+         </div>
+       </div>
+       </div>
+    <!-- <form novalidate (ngSubmit)="save(houseForm)" #houseForm="ngForm">
+     <h1> This works {{listJobs.length}}</h1>
+    </form> -->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-success" (click)="saveInvoice()">
+      Submit
+    </button>
+  </div>

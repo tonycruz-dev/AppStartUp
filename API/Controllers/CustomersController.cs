@@ -149,5 +149,57 @@ namespace API.Controllers
             var deletedJobItem = await _unitOfWork.CustomerService.DeleteJobItemAsync(id);
             return Ok(_mapper.Map<JobItem, JobItemDto>(deletedJobItem));
         }
+        [HttpPost("AddInvoice")]
+        public async Task<ActionResult<InvoiceDto>> PostAddInvoice(InvoiceDto invoice)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+                var itemToMap = _mapper.Map<InvoiceDto, Invoice>(invoice);
+                var createdCustomer = await _unitOfWork.CustomerService.AddInvoiceAsync(itemToMap);
+                var ReturnToMap = _mapper.Map<Invoice, InvoiceDto>(createdCustomer);
+                return Ok(ReturnToMap);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                return NotFound();
+            }
+        }
+
+        [HttpPut("UpdateInvoice")]
+        public async Task<ActionResult<CustomerDto>> UpdateInvoice(InvoiceDto invoice)
+        {
+            //var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+            var itemToMap = _mapper.Map<InvoiceDto, Invoice>(invoice);
+            var updateInvoice = await _unitOfWork.CustomerService.UpdateInvoiceAsync(itemToMap);
+
+            return Ok(_mapper.Map<Invoice, InvoiceDto>(updateInvoice));
+        }
+        [HttpDelete("DeleteInvoice/{id}")]
+        public async Task<ActionResult<InvoiceDto>> DeleteInvoice(int id)
+        {
+            var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+
+            var deletedInvoice = await _unitOfWork.CustomerService.DeleteInvoiceAsync(id);
+
+            var mapResult = _mapper.Map<Invoice, InvoiceDto>(deletedInvoice);
+
+            return mapResult;
+        }
+        [HttpGet("GetInvoiceByCustomerId/{id}")]
+        public async Task<ActionResult<IReadOnlyList<InvoiceDto>>> GetInvoice(int id)
+        {
+            var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+            return Ok(await _unitOfWork.CustomerService.GeInvoiceByCustomerIdAsync(id));
+        }
+        [HttpGet("GetInvoiceId/{id}")]
+        public async Task<ActionResult<InvoiceItemDto>> GetInvoiceId(int id)
+        {
+            var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+
+            return Ok(await _unitOfWork.CustomerService.GetInvoiceByIdAsync(id));
+        }
+
     }
 }

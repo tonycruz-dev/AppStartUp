@@ -66,6 +66,7 @@ namespace API.Infrastructure.Services
             return await _context
                 .Customers
                 .Include(ji => ji.JobItems)
+                .Include(inv => inv.Invoices)
                 .ProjectTo<CustomerWithJobItemDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(cus => cus.Id == Id);
         }

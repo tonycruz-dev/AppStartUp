@@ -9,6 +9,8 @@ import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { EditJobItemComponent } from '../modals/edit-job-item/edit-job-item.component';
 import { IJobItem, JobItem } from 'src/app/shared/Models/JobItem';
 import { AddJobItemComponent } from '../modals/add-job-item/add-job-item.component';
+import swal from 'sweetalert2';
+import { AddInvoiceComponent } from '../modals/add-invoice/add-invoice.component';
 
 @Component({
   selector: 'app-customer-edit',
@@ -108,13 +110,57 @@ export class CustomerEditComponent implements OnInit {
 
   }
 
+  // tslint:disable-next-line:typedef
+  async deleteJobItemModal(jobitem: IJobItem) {
+
+    const result = await swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this Job Item!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    });
+    if (result.value)
+    {
+      console.log(result.value);
+      this.customerServices.deleteJobItem(jobitem).subscribe((newJobItem) => {
+        this.customer.jobItems = [...this.customer.jobItems.filter(ji => ji.id !== jobitem.id)];
+        swal.fire(
+          'Deleted!',
+          'Your Job Item has been deleted.',
+          'success'
+          );
+      });
+    } else if (result.dismiss === swal.DismissReason.cancel)
+    {
+      swal.fire(
+        'Cancelled',
+        'Your Job Item is safe :)',
+        'error'
+        );
+    }
+  }
+  openAddInvoiceModal(): void {
+    const listJobs = [ ...this.customer.jobItems];
+    const config = {
+      class: 'modal-dialog-centered modal-lg',
+      initialState: {
+        listJobs
+      }
+    };
+    this.bsModalRef = this.modalService.show(AddInvoiceComponent, config);
+    this.bsModalRef.content.updateSelectedInvoice.subscribe(values => {
+      // console.log(values);
+      // this.customerServices.UpdateJobItem(values).subscribe(() => {
+      //   this.toastr.success('Invoice created successfully');
+      // });
+    });
+  }
+
   onTabActivated(data: TabDirective): void {
     this.activeTab = data;
-    // if (this.activeTab.heading === 'Messages' && this.customer.length === 0) {
-
-    // } else {
-    //  // this.messageService.stopHubConnection();
-    // }
   }
 
 }

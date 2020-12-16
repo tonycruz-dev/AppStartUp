@@ -93,6 +93,9 @@ export class CustomersService {
       })
       );
   }
+  deleteJobItem(jobItem: IJobItem): Observable<IJobItem> {
+    return this.http.delete<IJobItem>(this.baseUrl + `api/Customers/DeleteJobItem/${jobItem.id}`);
+  }
 
 
 }

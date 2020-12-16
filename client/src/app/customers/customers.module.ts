@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CustomerEditModalComponent } from './modals/customer-edit-modal/customer-edit-modal.component';
 import { EditJobItemComponent } from './modals/edit-job-item/edit-job-item.component';
 import { AddJobItemComponent } from './modals/add-job-item/add-job-item.component';
+import { AddInvoiceComponent } from './modals/add-invoice/add-invoice.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AddJobItemComponent } from './modals/add-job-item/add-job-item.componen
     CustomerAddComponent,
     CustomerEditModalComponent,
     EditJobItemComponent,
-    AddJobItemComponent],
+    AddJobItemComponent,
+    AddInvoiceComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,

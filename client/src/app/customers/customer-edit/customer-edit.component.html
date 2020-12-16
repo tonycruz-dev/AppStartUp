@@ -264,7 +264,7 @@
                     <div class="col-12 col-sm-12 col-md-2" style="display: flex; justify-content: flex-end">
                         <div class="float: right" style="padding-top: 5px;">
                             <h6><strong>{{jobs.amount | currency:'GBP'}}</strong></h6>
-                            <button type="button" class="btn btn-outline-danger btn-xs">
+                            <button (click)="deleteJobItemModal(jobs)" type="button" class="btn btn-outline-danger btn-xs">
                               <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                             <button type="button" (click)="openEditModal(jobs)" class="btn btn-outline-info btn-xs ml-1">
@@ -275,6 +275,9 @@
                   </div>
                   </div>
                    
+                </tab>
+                <tab heading='Invoices'>
+                  <button (click)="openAddInvoiceModal()" type="button" class="btn btn-outline-primary btn-sm">Add Invoice</button>
                 </tab>
             </tabset>
         </form>

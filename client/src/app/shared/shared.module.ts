@@ -10,6 +10,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 
@@ -30,7 +31,8 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    UiSwitchModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -46,6 +48,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     TabsModule,
     ConfirmDialogComponent,
     RolesModalComponent,
+    UiSwitchModule
   ]
 })
 export class SharedModule { }

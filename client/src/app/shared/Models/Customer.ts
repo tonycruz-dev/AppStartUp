@@ -1,3 +1,4 @@
+import { IInvoice } from './Invoice';
 import { IJobItem } from './JobItem';
 
 export interface ICustomer {
@@ -15,6 +16,7 @@ export interface ICustomer {
     photoUrl: string;
     noteInfo: string;
     jobItems: IJobItem[];
+    invoices: IInvoice[];
 }
 export class Customer {
   id: number;
