@@ -65,7 +65,7 @@ namespace API.Controllers
            return Ok(await _unitOfWork.CustomerService.GetCustomerByIdAsync(id));
         }
         [HttpPost("AddCustomer")]
-        public async Task<ActionResult<CustomerDto>> PostAddCandidate(CustomerDto customer)
+        public async Task<ActionResult<CustomerDto>> PostAddCustomer(CustomerDto customer)
         {
             try
             {
@@ -150,12 +150,12 @@ namespace API.Controllers
             return Ok(_mapper.Map<JobItem, JobItemDto>(deletedJobItem));
         }
         [HttpPost("AddInvoice")]
-        public async Task<ActionResult<InvoiceDto>> PostAddInvoice(InvoiceDto invoice)
+        public async Task<ActionResult<InvoiceDto>> PostAddInvoice(InvoiceWithItemsDto invoice)
         {
             try
             {
                 var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
-                var itemToMap = _mapper.Map<InvoiceDto, Invoice>(invoice);
+                var itemToMap = _mapper.Map<InvoiceWithItemsDto, Invoice>(invoice);
                 var createdCustomer = await _unitOfWork.CustomerService.AddInvoiceAsync(itemToMap);
                 var ReturnToMap = _mapper.Map<Invoice, InvoiceDto>(createdCustomer);
                 return Ok(ReturnToMap);

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace API.DTOs
 {
-    public class InvoiceDto
+    public class InvoiceInsertDto
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
@@ -17,6 +17,6 @@ namespace API.DTOs
         public decimal TotalPaid { get; set; } = 0M;
         public DateTime? DatePaid { get; set; }
         public bool IsPosted { get; set; } = false;
+        public List<InvoiceItemDto> InvoiceItems { get; set; }
     }
-    
 }

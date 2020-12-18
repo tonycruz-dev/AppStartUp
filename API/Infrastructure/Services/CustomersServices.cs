@@ -136,6 +136,7 @@ namespace API.Infrastructure.Services
         // Invoice Manager
         public async Task<Invoice> AddInvoiceAsync(Invoice invoice)
         {
+
             _context.Invoices.Add(invoice);
             await _context.SaveChangesAsync();
             return invoice;
