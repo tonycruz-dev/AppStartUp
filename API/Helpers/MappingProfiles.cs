@@ -19,6 +19,7 @@ namespace API.Helpers
             CreateMap<JobItem, JobItemDto>().ReverseMap();
             CreateMap<Invoice, InvoiceInsertDto>().ReverseMap();
             CreateMap<InvoiceItem, InvoiceItemDto>();
+            CreateMap<Invoice, InvoiceWithItemsDto>();
             CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
 
         }

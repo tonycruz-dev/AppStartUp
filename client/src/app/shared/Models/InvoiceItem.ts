@@ -4,6 +4,6 @@ export class InvoiceItem {
     jobItem: number;
     itemDescription: string;
     jobDate: Date;
-    ivoiceItemDate: Date;
+    ivoiceItemDate?: Date;
     amount: number ;
 }

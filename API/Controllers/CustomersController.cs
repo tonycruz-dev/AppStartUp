@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -155,9 +156,34 @@ namespace API.Controllers
             try
             {
                 var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
-                var itemToMap = _mapper.Map<InvoiceWithItemsDto, Invoice>(invoice);
-                var createdCustomer = await _unitOfWork.CustomerService.AddInvoiceAsync(itemToMap);
-                var ReturnToMap = _mapper.Map<Invoice, InvoiceDto>(createdCustomer);
+                var _invoice = new Invoice
+                {
+                     CustomerId = invoice.CustomerId,
+                     InvoiceAddress =  invoice.InvoiceAddress,
+                     InvoiceDate = DateTime.UtcNow,
+                     InvoiceYesNo = invoice.InvoiceYesNo,
+                     TotalValue = invoice.TotalValue,
+                     TotalPaid = 0,
+                     IsPosted = false,
+                     InvoiceNote = "",
+                     Title = "Invoice Genarated on " + DateTime.Now
+                };
+                var createdInvoice = await _unitOfWork.CustomerService.AddInvoiceAsync(_invoice);
+                foreach (var item in invoice.InvoiceItems)
+                {
+                    var invoiceItem = new InvoiceItem
+                    {
+                        Amount = item.Amount,
+                        InvoiceId = createdInvoice.Id,
+                        ItemDescription = item.ItemDescription,
+                        JobDate = DateTime.UtcNow,
+                        IvoiceItemDate = DateTime.Now
+                    };
+                    var createdInvoiceItem = await _unitOfWork.CustomerService.AddInvoiceItemAsync(invoiceItem);
+
+                }
+                
+                var ReturnToMap = _mapper.Map<Invoice, InvoiceDto>(createdInvoice);
                 return Ok(ReturnToMap);
             }
             catch (DbUpdateConcurrencyException)

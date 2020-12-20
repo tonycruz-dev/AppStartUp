@@ -11,8 +11,8 @@ namespace API.DTOs
         public int InvoiceId { get; set; }
         public int JobItem { get; set; }
         public string ItemDescription { get; set; }
-        public DateTime JobDate { get; set; }
-        public DateTime IvoiceItemDate { get; set; }
+        public DateTime? JobDate { get; set; }
+        public DateTime? IvoiceItemDate { get; set; }
         public decimal Amount { get; set; } = 0M;
     }
 }

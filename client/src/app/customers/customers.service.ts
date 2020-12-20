@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AccountsService } from '../accounts/accounts.service';
 import { ICustomer } from '../shared/Models/Customer';
 import { CustomerParams } from '../shared/Models/customerParams';
+import { Invoice } from '../shared/Models/Invoice';
 import { IJobItem } from '../shared/Models/JobItem';
 import { PaginatedResult } from '../shared/Models/pagination';
 import { getPaginatedResult, getPaginationHeaders } from '../shared/Models/paginationHelper';
@@ -95,6 +96,9 @@ export class CustomersService {
   }
   deleteJobItem(jobItem: IJobItem): Observable<IJobItem> {
     return this.http.delete<IJobItem>(this.baseUrl + `api/Customers/DeleteJobItem/${jobItem.id}`);
+  }
+  addInvoice(invoice: Invoice): Observable<Invoice> {
+    return this.http.post<Invoice>(this.baseUrl + `api/Customers/AddInvoice`, invoice);
   }
 
 

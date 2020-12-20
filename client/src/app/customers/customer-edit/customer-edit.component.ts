@@ -11,6 +11,8 @@ import { IJobItem, JobItem } from 'src/app/shared/Models/JobItem';
 import { AddJobItemComponent } from '../modals/add-job-item/add-job-item.component';
 import swal from 'sweetalert2';
 import { AddInvoiceComponent } from '../modals/add-invoice/add-invoice.component';
+import { InvoiceToInsert } from 'src/app/shared/Models/Invoice';
+import { InvoiceItem } from 'src/app/shared/Models/InvoiceItem';
 
 @Component({
   selector: 'app-customer-edit',
@@ -151,11 +153,32 @@ export class CustomerEditComponent implements OnInit {
       }
     };
     this.bsModalRef = this.modalService.show(AddInvoiceComponent, config);
-    this.bsModalRef.content.updateSelectedInvoice.subscribe(values => {
-      // console.log(values);
-      // this.customerServices.UpdateJobItem(values).subscribe(() => {
-      //   this.toastr.success('Invoice created successfully');
-      // });
+    this.bsModalRef.content.updateSelectedInvoice.subscribe((values: JobItem[]) => {
+      var newInvoice = new InvoiceToInsert();
+      newInvoice.customerId =  this.customer.id
+      newInvoice.invoiceAddress =  this.customer.address1
+      newInvoice.invoiceDate =  null;
+      newInvoice.invoiceYesNo =  false;
+      newInvoice.isPosted = false;
+      let TotalAmount = 0;
+      values.forEach(item => {
+        if (item.isInvoiced) {
+          const invItem = new InvoiceItem()
+          invItem.amount = item.amount;
+          invItem.itemDescription =  item.jobDescription;
+          invItem.jobDate = null;
+          invItem.ivoiceItemDate = null;
+          newInvoice.invoiceItems.push(invItem);
+          TotalAmount +=  item.amount
+        }
+      });
+      newInvoice.totalValue = TotalAmount;
+
+       console.log(newInvoice);
+       console.log(TotalAmount);
+      this.customerServices.addInvoice(newInvoice).subscribe(() => {
+        this.toastr.success('Invoice created successfully');
+      });
     });
   }
 

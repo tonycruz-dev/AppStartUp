@@ -24,7 +24,7 @@ export class AddInvoiceComponent implements OnInit {
   }
 
   saveInvoice(): void {
-    this.updateSelectedInvoice.emit(this.invoiceEdit);
+    this.updateSelectedInvoice.emit(this.listJobs);
     this.bsModalRef.hide();
   }
 
