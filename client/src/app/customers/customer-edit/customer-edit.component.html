@@ -265,10 +265,10 @@
                     <div class="col-12 col-sm-12 col-md-2" style="display: flex; justify-content: flex-end">
                         <div class="float: right" style="padding-top: 5px;">
                             <h6><strong>{{jobs.amount | currency:'GBP'}}</strong></h6>
-                            <button (click)="deleteJobItemModal(jobs)" type="button" class="btn btn-outline-danger btn-xs">
+                            <button (click)="deleteJobItemModal(jobs)"  [disabled]="jobs.isInvoiced" type="button" class="btn btn-outline-danger btn-xs">
                               <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
-                            <button type="button" (click)="openEditModal(jobs)" class="btn btn-outline-info btn-xs ml-1">
+                            <button type="button" (click)="openEditModal(jobs)" [disabled]="jobs.isInvoiced" class="btn btn-outline-info btn-xs ml-1">
                               <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -279,6 +279,30 @@
                 </tab>
                 <tab heading='Invoices'>
                   <button (click)="openAddInvoiceModal()" type="button" class="btn btn-outline-primary btn-sm">Add Invoice</button>
+                  <div *ngFor="let invoice of customer.invoices">
+                    <hr>
+                   <div class="row"  >
+                     <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-10">
+                         <h5 class="product-name"><strong>{{invoice.title}}</strong> on <small class="fa fa-clock-o fw-light"> </small><span class="fw-light"></span></h5>
+                         <h6  class="col-10 text-truncate" style="max-width:150; max-height: 35px;">
+                             <small class="fs-4">{{invoice.invoiceAddress}}</small>
+
+                         </h6>
+                     </div>
+                     <div class="col-12 col-sm-12 col-md-2" style="display: flex; justify-content: flex-end">
+                         <div class="float: right" style="padding-top: 5px;">
+                             <h6><strong>{{invoice.totalValue | currency:'GBP'}}</strong></h6>
+                             <button (click)="deleteInvoiceModal(invoice)" type="button" class="btn btn-outline-danger btn-xs">
+                               <i class="fa fa-print" aria-hidden="true"></i>
+                             </button>
+                             <button type="button" (click)="openEditInvoiceModal(invoice)"  class="btn btn-outline-info btn-xs ml-1">
+                               <i class="fa fa-envelope" aria-hidden="true"></i>
+                             </button>
+                         </div>
+                     </div>
+                   </div>
+                   </div>
+
                 </tab>
             </tabset>
         </form>

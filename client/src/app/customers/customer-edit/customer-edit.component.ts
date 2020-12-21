@@ -11,7 +11,7 @@ import { IJobItem, JobItem } from 'src/app/shared/Models/JobItem';
 import { AddJobItemComponent } from '../modals/add-job-item/add-job-item.component';
 import swal from 'sweetalert2';
 import { AddInvoiceComponent } from '../modals/add-invoice/add-invoice.component';
-import { InvoiceToInsert } from 'src/app/shared/Models/Invoice';
+import { IInvoice, Invoice, InvoiceToInsert } from 'src/app/shared/Models/Invoice';
 import { InvoiceItem } from 'src/app/shared/Models/InvoiceItem';
 
 @Component({
@@ -88,8 +88,8 @@ export class CustomerEditComponent implements OnInit {
   }
    // tslint:disable-next-line:typedef
    openAddJobItemModal() {
-    // tslint:disable-next-line:prefer-const
-    let jobItem = new JobItem();
+
+    const jobItem = new JobItem();
     jobItem.title = '';
     jobItem.jobDate =  new Date();
     jobItem.jobDescription = '';
@@ -154,34 +154,50 @@ export class CustomerEditComponent implements OnInit {
     };
     this.bsModalRef = this.modalService.show(AddInvoiceComponent, config);
     this.bsModalRef.content.updateSelectedInvoice.subscribe((values: JobItem[]) => {
-      var newInvoice = new InvoiceToInsert();
-      newInvoice.customerId =  this.customer.id
-      newInvoice.invoiceAddress =  this.customer.address1
-      newInvoice.invoiceDate =  null;
+
+      const newInvoice = new InvoiceToInsert();
+      newInvoice.customerId =  this.customer.id;
+      newInvoice.invoiceAddress =  this.customer.address1;
+      newInvoice.invoiceDate = new Date();
       newInvoice.invoiceYesNo =  false;
       newInvoice.isPosted = false;
       let TotalAmount = 0;
       values.forEach(item => {
         if (item.isInvoiced) {
-          const invItem = new InvoiceItem()
+          const invItem = new InvoiceItem();
           invItem.amount = item.amount;
           invItem.itemDescription =  item.jobDescription;
-          invItem.jobDate = null;
-          invItem.ivoiceItemDate = null;
+          invItem.jobDate = item.jobDate;
+          invItem.ivoiceItemDate = new Date();
           newInvoice.invoiceItems.push(invItem);
-          TotalAmount +=  item.amount
+          TotalAmount +=  item.amount;
         }
       });
       newInvoice.totalValue = TotalAmount;
 
-       console.log(newInvoice);
-       console.log(TotalAmount);
-      this.customerServices.addInvoice(newInvoice).subscribe(() => {
+      console.log(newInvoice);
+      console.log(TotalAmount);
+      this.customerServices.addInvoice(newInvoice).subscribe((newInv) => {
+        this.customer.invoices.push(newInv);
         this.toastr.success('Invoice created successfully');
       });
+      values.forEach(item => {
+        this.customerServices.updateJobItem(item).subscribe(() => {
+         const index = this.customer.jobItems.findIndex(job => job.id = item.id);
+         this.customer.jobItems[index] = item;
+
+        });
+      });
     });
+
   }
 
+  deleteInvoiceModal(invoice: Invoice): void {
+    console.log(invoice);
+  }
+  openEditInvoiceModal(invoice: IInvoice): void {
+    console.log(invoice);
+  }
   onTabActivated(data: TabDirective): void {
     this.activeTab = data;
   }

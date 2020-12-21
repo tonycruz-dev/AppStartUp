@@ -86,6 +86,9 @@ export class CustomersService {
   addJobItem(jobItem: IJobItem): Observable<IJobItem> {
     return this.http.post<IJobItem>(this.baseUrl + 'api/Customers/AddJobItem', jobItem);
  }
+  updateJobItem(jobItem: IJobItem): Observable<IJobItem> {
+    return this.http.put<IJobItem>(this.baseUrl + 'api/Customers/UpdateJobItem', jobItem);
+ }
   updateCustomer(customer: ICustomer): Observable<void> {
       return this.http.put(this.baseUrl + 'api/Customers/UpdateCustomer', customer)
       .pipe(map(() => {
