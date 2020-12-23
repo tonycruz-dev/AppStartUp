@@ -12,5 +12,6 @@ namespace API.DTOs
         public string Token { get; set; }
         public string Avatar { get; set; }
         public string Occupation { get; set; }
+        public string Id { get; internal set; }
     }
 }

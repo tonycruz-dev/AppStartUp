@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AccountsService } from '../accounts/accounts.service';
-import { ICustomer } from '../shared/Models/Customer';
+import { Customer, ICustomer } from '../shared/Models/Customer';
 import { CustomerParams } from '../shared/Models/customerParams';
 import { Invoice } from '../shared/Models/Invoice';
 import { IJobItem } from '../shared/Models/JobItem';
@@ -26,9 +26,9 @@ export class CustomersService {
     this.customerParams = new CustomerParams();
     this.accountServices.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
+      this.customerCache = new Map();
     });
   }
-
   // tslint:disable-next-line:typedef
   getCustomers(custParms: CustomerParams) {
     const response = this.customerCache.get(Object.values(custParms).join('-'));
@@ -44,10 +44,8 @@ export class CustomersService {
       custParms.search = '';
     }
     params = params.append('search', custParms.search);
+    params = params.append('userId', this.user.id);
 
-
-    // params = params.append('gender', userParams.gender);
-    // params = params.append('orderBy', userParams.orderBy);
 
     return getPaginatedResult<ICustomer[]>( this.baseUrl + 'api/Customers/GetCustomerWithPagination', params, this.http)
     .pipe(map(result => {
@@ -65,20 +63,17 @@ export class CustomersService {
     this.customerParams = params;
   }
 
-  // tslint:disable-next-line:typedef
-  resetCustomerParams() {
+
+  resetCustomerParams(): CustomerParams {
     this.customerParams = new CustomerParams();
     return this.customerParams;
   }
   getCustomerById(id: number): Observable<ICustomer>  {
-    // const findCustomer = [...this.customerCache.values()]
-    // .reduce((arr, elem) => arr.concat(elem.result), [])
-    // .find((customer: ICustomer) => customer.id === id);
 
-    // if (findCustomer) {
-    //   return of(findCustomer);
-    // }
     return this.http.get<ICustomer>(this.baseUrl + `api/Customers/GetCustomersById/${id}`);
+  }
+  addCustomer(customer: Customer): Observable<ICustomer>  {
+    return this.http.post<ICustomer>(this.baseUrl + `api/Customers/AddCustomer`, customer);
   }
   UpdateJobItem(jobItem: IJobItem): Observable<IJobItem> {
      return this.http.put<IJobItem>(this.baseUrl + 'api/Customers/UpdateJobItem', jobItem);
@@ -92,8 +87,8 @@ export class CustomersService {
   updateCustomer(customer: ICustomer): Observable<void> {
       return this.http.put(this.baseUrl + 'api/Customers/UpdateCustomer', customer)
       .pipe(map(() => {
-        const index = this.paginatedResult.result.indexOf(customer);
-        this.paginatedResult.result[index] = customer;
+        // const index = this.paginatedResult.result.indexOf(customer);
+       // this.paginatedResult.result[index] = customer;
       })
       );
   }

@@ -74,6 +74,7 @@ namespace API.Infrastructure.Services
         public async Task<PagedList<CustomerDto>> GetPaginationCustomersAsyc(CustomerParams customerParams)
         {
             var query = _context.Customers.AsQueryable();
+            query = query.Where(c => c.AppUserId == customerParams.userId);
 
             if (customerParams.Search != null)
             {

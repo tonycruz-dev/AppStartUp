@@ -53,6 +53,7 @@ namespace API.Infrastructure.Services
         {
             var claims = new List<Claim>
             {
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.GivenName, user.NickName),
                 new Claim(JwtRegisteredClaimNames.FamilyName, user.Occupation),

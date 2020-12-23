@@ -68,7 +68,7 @@ export class AccountsService {
       email: values.email,
       password: values.password
     };
-    return this.http.post(this.baseUrl + 'Account/registerClient', data).pipe(
+    return this.http.post(this.baseUrl + 'api/Account/register', data).pipe(
       map((user: IUser) => {
         if (user) {
           this.currentUser = user;

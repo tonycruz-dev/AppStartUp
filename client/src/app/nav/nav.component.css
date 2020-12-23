@@ -25,3 +25,7 @@
 .mb-2, .my-2 {
     margin-bottom: .5rem!important;
 }
+.dropdown-toggle:hover {
+  color: black;
+  text-decoration: none;
+}

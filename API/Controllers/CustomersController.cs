@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class CustomersController : BaseController
     {
         // private readonly ICustomerService _customerService;
@@ -43,11 +43,10 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<CustomerDto>>> GetCustomerWithPagination([FromQuery]CustomerParams customerParams)
         {
             var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);
+         
             var results = await _unitOfWork.CustomerService.GetPaginationCustomersAsyc(customerParams);
             Response.AddPaginationHeader(results.CurrentPage, results.PageSize, results.TotalCount, results.TotalPages);
             return Ok(results);
-            // var returnResults = _mapper.Map<List<Customer>, List<CustomerDto>>((List<Customer>)customers);
-            //return Ok(returnResults);
         }
         [HttpGet("GetCustomersByUserId/{id}")]
         public async Task<ActionResult<IReadOnlyList<CustomerDto>>> GetCustomerByUserId(string id)
@@ -74,6 +73,7 @@ namespace API.Controllers
                 var itemToMap = _mapper.Map<CustomerDto, Customer>(customer);
                 itemToMap.AppUserId = user.Id;
                 itemToMap.AppUser = user;
+                itemToMap.PhotoUrl = "https://res.cloudinary.com/dbalg7dya/image/upload/v1593803393/PlaceOrder_fkjr9a.png";
                 var createdCustomer = await _unitOfWork.CustomerService.AddCustomerAsync(itemToMap);
                 var ReturnToMap = _mapper.Map<CustomerDto, Customer>(customer);
                 return Ok(ReturnToMap);

@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="col-8">
-        <form novalidate #editForm="ngForm">
+        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateCustomers()">
            <tabset class="member-tabset" #customersTabs>
                 <tab heading='About {{customer.customerName}}' (selectTab)="onTabActivated($event)">
                     <div class="form-group">
@@ -247,8 +247,6 @@
                 <tab heading='More Details'>
                     <h4 class="mt-2">Note Info</h4>
                     <textarea class="form-control" [(ngModel)]="customer.noteInfo" name="noteInfo" rows="12"></textarea>
-                    <h4 class="mt-2">More Info</h4>
-                    <textarea class="form-control" [(ngModel)]="customer.noteInfo" name="noteInfo" rows="6"></textarea>
                 </tab>
                 <tab heading='Jobs'>
                   <button (click)="openAddJobItemModal()" type="button" class="btn btn-outline-primary btn-sm">Add New Job</button>

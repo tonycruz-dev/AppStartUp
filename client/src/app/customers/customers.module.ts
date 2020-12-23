@@ -12,6 +12,7 @@ import { CustomerEditModalComponent } from './modals/customer-edit-modal/custome
 import { EditJobItemComponent } from './modals/edit-job-item/edit-job-item.component';
 import { AddJobItemComponent } from './modals/add-job-item/add-job-item.component';
 import { AddInvoiceComponent } from './modals/add-invoice/add-invoice.component';
+import { AddModalCustomerComponent } from './modals/add-modal-customer/add-modal-customer.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AddInvoiceComponent } from './modals/add-invoice/add-invoice.component'
     CustomerEditModalComponent,
     EditJobItemComponent,
     AddJobItemComponent,
-    AddInvoiceComponent],
+    AddInvoiceComponent,
+    AddModalCustomerComponent],
   imports: [
     CommonModule,
     CustomersRoutingModule,

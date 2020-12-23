@@ -32,6 +32,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Email = user.Email,
+                Id = user.Id,
                 Token = await _tokenService.CreateTokenAsync(user),
                 DisplayName = user.NickName,
                 Avatar = user.Avatar,
@@ -58,6 +59,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Email = user.Email,
+                Id = user.Id,
                 Token = await _tokenService.CreateTokenAsync(user),
                 DisplayName = user.NickName,
                 Avatar = user.Avatar,
@@ -70,7 +72,7 @@ namespace API.Controllers
         {
             var user = new AppUser
             {
-                NickName = registerDto.DisplayName,
+                NickName = registerDto.NickName,
                 Email = registerDto.Email,
                 UserName = registerDto.Email,
                 Occupation = "manager",
@@ -89,6 +91,7 @@ namespace API.Controllers
             return new UserDto
             {
                 DisplayName = user.NickName,
+                Id =  user.Id,
                 Token = await _tokenService.CreateTokenAsync(user),
                 Email = user.Email,
                 Avatar = user.Avatar,

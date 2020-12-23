@@ -5,7 +5,7 @@
 </div> -->
 <div class="input-group mb-3 mt-2">
     <div class="input-group-prepend">
-        <button  [routerLink]="['addhouse']" class="btn btn-primary"  id="button-addon1"><i class="fa fa-plus-circle"></i></button>
+        <button  (click)="addCustomerModal()" class="btn btn-primary"  id="button-addon1"><i class="fa fa-plus-circle"></i></button>
         <button (click)="searchHomes()" class="btn btn-primary"  id="button-addon1"><i class="fa fa-search"></i></button>
     </div>
     <input type="text" [(ngModel)]="customerParams.search" class="form-control" placeholder="name or company">
